@@ -1,46 +1,58 @@
 package Ciclista;
 
-import org.example.DBConfig;
+//Clase para crear el objeto Etapa --> Para tener el ID de la etapa
+public class Etapa {
+    private int numeroEtapa;
+    private String origen;
+    private String destino;
+    private double distancia;
+    private String fecha;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+    public Etapa(int numeroEtapa, String origen, String destino, double distancia, String fecha) {
+        this.numeroEtapa = numeroEtapa;
+        this.origen = origen;
+        this.destino = destino;
+        this.distancia = distancia;
+        this.fecha = fecha;
+    }
 
-public class InsertarEtapa {
-    public static void insertarNuevaEtapa(int numeroEtapa, String origen, String destino, double distancia, String fecha) throws SQLException {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUser(),
-                    DBConfig.getPassword()
-            );
-            connection.setAutoCommit(false);
+    public int getNumeroEtapa() {
+        return numeroEtapa;
+    }
 
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO etapa VALUES (?,?,?,?,?)");
-            preparedStatement.setInt(1, numeroEtapa);
-            preparedStatement.setString(2, origen);
-            preparedStatement.setString(3, destino);
-            preparedStatement.setDouble(4, distancia);
-            preparedStatement.setString(5, fecha);
-            preparedStatement.executeUpdate();
+    public void setNumeroEtapa(int numeroEtapa) {
+        this.numeroEtapa = numeroEtapa;
+    }
 
-            connection.commit();
-            System.out.println("Etapa insertada.");
+    public String getOrigen() {
+        return origen;
+    }
 
-        } catch (SQLException e) {
-            System.out.println("Error --> " + e.getMessage());
-            connection.rollback();
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
 
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.out.println("Error al cerrar la conexión --> " + e.getMessage());
-                }
-            }
-        }
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }
